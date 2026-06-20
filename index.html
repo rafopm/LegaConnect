@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LegalConnect – Conecta con Abogados de Confianza</title>
+  <meta name="description" content="LegalConnect conecta personas y emprendedores con abogados verificados de manera rapida, segura y accesible." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#1a56db;--pd:#1035a6;--pl:#e8effd;
+  --a:#0ea5e9;--a2:#6366f1;--ok:#10b981;
+  --warn:#f59e0b;--err:#ef4444;--gold:#f59e0b;
+  --bg:#f0f4ff;--card:#fff;--txt:#0f172a;
+  --tm:#64748b;--tl:#94a3b8;--bdr:#e2e8f0;
+  --sh:0 4px 16px rgba(0,0,0,.08);
+  --shl:0 20px 60px rgba(0,0,0,.12);
+  --r:16px;--rs:10px;--rx:6px;
+  --f:Inter,sans-serif
+}
+body{font-family:var(--f);background:#0c1445;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow-x:hidden}
+.wrap{display:flex;align-items:center;justify-content:center;gap:28px;padding:20px}
+.frame{width:390px;height:844px;background:#111827;border-radius:54px;padding:12px;box-shadow:0 0 0 2px #374151,0 0 0 6px #111827,0 40px 80px rgba(0,0,0,.6);position:relative;flex-shrink:0}
+.screen-area{width:100%;height:100%;border-radius:44px;overflow:hidden;background:var(--bg);position:relative}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:126px;height:34px;background:#111827;border-radius:0 0 20px 20px;z-index:100}
+.sc{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding-top:44px;display:none;flex-direction:column;background:var(--bg);scrollbar-width:none}
+.sc::-webkit-scrollbar{display:none}
+.sc.on{display:flex;animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sbar{position:absolute;top:0;left:0;right:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:12px 20px 0;z-index:99;pointer-events:none}
+.st{font-size:13px;font-weight:700;color:#fff}
+.si{display:flex;gap:5px;align-items:center;font-size:12px;color:#fff}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 12px;background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--bdr)}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-ic{width:32px;height:32px;background:linear-gradient(135deg,var(--p),var(--a2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.logo-tx{font-size:17px;font-weight:800;background:linear-gradient(135deg,var(--p),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.av{width:34px;height:34px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.bk{display:flex;align-items:center;gap:6px;color:var(--p);font-size:14px;font-weight:600;cursor:pointer;padding:4px 8px;border-radius:var(--rx);transition:background .15s}
+.bk:hover{background:var(--pl)}
+.hero{background:linear-gradient(145deg,#0f1f6e 0%,#1a3a9e 50%,#2563eb 100%);padding:28px 20px 36px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:rgba(99,102,241,.2);border-radius:50%}
+.hg{font-size:13px;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:4px}
+.ht{font-size:22px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:20px;position:relative;z-index:1}
+.sbox{display:flex;align-items:center;background:#fff;border-radius:14px;padding:12px 16px;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.25);position:relative;z-index:1;cursor:pointer;transition:transform .2s}
+.sbox:hover{transform:translateY(-1px)}
+.stxt{font-size:14px;color:var(--tl);flex:1}
+.sbtn{background:linear-gradient(135deg,var(--p),var(--a2));color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--f)}
+.sec{padding:20px 20px 0}
+.sech{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sect{font-size:16px;font-weight:700;color:var(--txt)}
+.secl{font-size:13px;color:var(--p);font-weight:600;cursor:pointer}
+.cgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.cat{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;background:#fff;border-radius:var(--rs);border:1.5px solid var(--bdr);cursor:pointer;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.cat:hover,.cat.on{border-color:var(--p);background:var(--pl);transform:translateY(-2px)}
+.cic{font-size:20px}
+.clb{font-size:9px;font-weight:600;color:var(--tm);text-align:center}
+.cat.on .clb{color:var(--p)}
+.crl{display:flex;gap:14px;overflow-x:auto;padding:4px 20px 20px;scrollbar-width:none}
+.crl::-webkit-scrollbar{display:none}
+.cmin{min-width:160px;background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh);cursor:pointer;transition:all .25s;border:1.5px solid transparent}
+.cmin:hover{border-color:var(--p);transform:translateY(-3px)}
+.cav{width:56px;height:56px;border-radius:50%;overflow:hidden;margin:0 auto 10px;border:3px solid var(--pl);display:flex;align-items:center;justify-content:center}
+.cav img{width:100%;height:100%;object-fit:cover}
+.cnm{font-size:12px;font-weight:700;color:var(--txt);text-align:center;margin-bottom:3px}
+.csp{font-size:10px;color:var(--p);text-align:center;font-weight:600;margin-bottom:6px}
+.stars{display:flex;align-items:center;justify-content:center;gap:2px;font-size:10px}
+.star{color:var(--gold)}
+.sc-sc{color:var(--txt);font-weight:700;margin-left:2px}
+.rh{background:#fff;padding:14px 20px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:12px}
+.rtg{background:var(--pl);color:var(--p);font-size:13px;font-weight:700;padding:6px 14px;border-radius:20px;flex:1}
+.fb{display:flex;align-items:center;gap:5px;background:#fff;border:1.5px solid var(--bdr);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--txt);cursor:pointer;transition:all .2s;font-family:var(--f)}
+.fb:hover{border-color:var(--p);color:var(--p)}
+.rc{padding:10px 20px;font-size:12px;color:var(--tm);font-weight:500}
+.ll{padding:0 16px 100px;display:flex;flex-direction:column;gap:12px}
+.lc{background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sh);display:flex;gap:14px;cursor:pointer;transition:all .25s;border:1.5px solid transparent}
+.lc:hover{border-color:var(--p);transform:translateY(-2px)}
+.lav{width:64px;height:64px;border-radius:14px;overflow:hidden;flex-shrink:0;border:2px solid var(--pl)}
+.lav img{width:100%;height:100%;object-fit:cover}
+.li{flex:1;min-width:0}
+.lnr{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.ln{font-size:15px;font-weight:700;color:var(--txt)}
+.vbg{background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:8px;font-weight:700;padding:2px 6px;border-radius:20px;white-space:nowrap}
+.lsp{font-size:12px;color:var(--tm);margin-bottom:6px}
+.lst{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.rp{display:flex;align-items:center;gap:3px;background:#fff9ed;border:1px solid #fde68a;border-radius:20px;padding:3px 8px;font-size:11px;font-weight:700}
+.rv{font-size:11px;color:var(--tm)}
+.pt{font-size:12px;color:var(--ok);font-weight:700}
+.vb{background:linear-gradient(135deg,var(--p),var(--a2));color:#fff;border:none;border-radius:var(--rx);padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--f);transition:all .2s;white-space:nowrap}
+.vb:hover{transform:scale(1.04)}
+.ph{background:linear-gradient(145deg,#0f1f6e,#2563eb);padding:24px 20px 40px;text-align:center;position:relative}
+.paw{position:relative;display:inline-block;margin-bottom:12px}
+.pa{width:88px;height:88px;border-radius:50%;overflow:hidden;border:4px solid rgba(255,255,255,.3);margin:0 auto}
+.pa img{width:100%;height:100%;object-fit:cover}
+.pvr{position:absolute;bottom:2px;right:2px;width:24px;height:24px;background:var(--ok);border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700}
+.pn{font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.psp{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.spg{background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px}
+.plc{font-size:12px;color:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;gap:4px}
+.psr{display:flex;background:#fff;border-radius:16px 16px 0 0;padding:16px;margin-top:-20px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.ps{flex:1;text-align:center;padding:0 8px;border-right:1px solid var(--bdr)}
+.ps:last-child{border-right:none}
+.psn{font-size:18px;font-weight:800;color:var(--txt)}
+.psl{font-size:10px;color:var(--tm);font-weight:500}
+.psec{background:#fff;margin:0 0 8px;padding:16px 20px}
+.psect{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:10px}
+.pbio{font-size:13px;color:var(--tm);line-height:1.6}
+.svi{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bdr)}
+.svi:last-child{border-bottom:none}
+.svn{font-size:13px;font-weight:600;color:var(--txt)}
+.svd{font-size:11px;color:var(--tm);margin-top:2px}
+.svp{font-size:16px;font-weight:800;color:var(--p);white-space:nowrap}
+.rvi{padding:12px 0;border-bottom:1px solid var(--bdr)}
+.rvi:last-child{border-bottom:none}
+.rvh{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.rav{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.rnm{font-size:13px;font-weight:700;color:var(--txt)}
+.rdt{font-size:11px;color:var(--tl);margin-left:auto}
+.rrs{font-size:11px;margin-bottom:5px}
+.rtx{font-size:12px;color:var(--tm);line-height:1.5}
+.fab{position:sticky;bottom:0;background:#fff;padding:12px 16px 20px;display:flex;gap:10px;border-top:1px solid var(--bdr);box-shadow:0 -8px 24px rgba(0,0,0,.1)}
+.fbtn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:14px;border-radius:var(--rs);font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:var(--f);transition:all .2s}
+.fch{background:var(--pl);color:var(--p);border:2px solid var(--p)}
+.fch:hover{background:var(--p);color:#fff}
+.fsc{background:linear-gradient(135deg,var(--p),var(--a2));color:#fff;box-shadow:0 6px 20px rgba(26,86,219,.4)}
+.fsc:hover{transform:translateY(-2px)}
+.oh{background:linear-gradient(145deg,#0f1f6e,#1a3a9e);padding:28px 20px 32px;text-align:center}
+.osteps{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:16px}
+.sd{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
+.sd.on{background:#fff;width:24px;border-radius:4px}
+.ot{font-size:22px;font-weight:800;color:#fff;margin-bottom:6px}
+.os{font-size:13px;color:rgba(255,255,255,.7)}
+.fb2{padding:20px 20px 100px;display:flex;flex-direction:column;gap:16px}
+.fg label{display:block;font-size:12px;font-weight:700;color:var(--txt);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.fi{width:100%;padding:12px 14px;border:2px solid var(--bdr);border-radius:var(--rs);font-size:14px;font-family:var(--f);color:var(--txt);background:#fff;outline:none;transition:border-color .2s}
+.fi:focus{border-color:var(--p)}
+.uz{border:2px dashed var(--p);border-radius:var(--r);padding:28px 20px;text-align:center;background:var(--pl);cursor:pointer}
+.ui{font-size:32px;margin-bottom:8px}
+.ut{font-size:14px;font-weight:700;color:var(--p);margin-bottom:4px}
+.uh{font-size:12px;color:var(--tm)}
+.tr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sb{width:100%;padding:16px;background:linear-gradient(135deg,var(--p),var(--a2));color:#fff;border:none;border-radius:var(--r);font-size:16px;font-weight:700;cursor:pointer;font-family:var(--f);box-shadow:0 8px 24px rgba(26,86,219,.4);transition:all .2s}
+.sb:hover{transform:translateY(-2px)}
+.dh{background:linear-gradient(145deg,#0f1f6e,#2563eb);padding:20px 20px 28px}
+.dw{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:4px}
+.dn{font-size:20px;font-weight:800;color:#fff;margin-bottom:16px}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mc{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:var(--rs);padding:14px}
+.mci{font-size:20px;margin-bottom:6px}
+.mcn{font-size:24px;font-weight:900;color:#fff;margin-bottom:2px}
+.mcl{font-size:11px;color:rgba(255,255,255,.7);font-weight:500}
+.ds{padding:16px 16px 0}
+.dst{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:12px}
+.mi{background:#fff;border-radius:var(--rs);padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);cursor:pointer;transition:all .2s;border-left:3px solid transparent}
+.mi:hover{border-left-color:var(--p);transform:translateX(2px)}
+.mi.u{border-left-color:var(--p)}
+.mav{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.min{flex:1;min-width:0}
+.mnm{font-size:13px;font-weight:700;color:var(--txt)}
+.mpv{font-size:12px;color:var(--tm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mtm{font-size:10px;color:var(--tl)}
+.mbg{background:var(--p);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.ag{background:#fff;border-radius:var(--rs);padding:12px 14px;display:flex;gap:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);border-left:3px solid var(--p)}
+.atm{text-align:center;min-width:44px}
+.ah{font-size:14px;font-weight:800;color:var(--p)}
+.aa{font-size:10px;color:var(--tm)}
+.adv{width:1px;background:var(--bdr)}
+.acl{font-size:13px;font-weight:700;color:var(--txt)}
+.atp{font-size:11px;color:var(--tm);margin-top:2px}
+.aac{display:flex;gap:6px;margin-top:8px}
+.aok{font-size:11px;font-weight:600;background:#dcfce7;color:var(--ok);border:1px solid #86efac;border-radius:var(--rx);padding:4px 10px;cursor:pointer;font-family:var(--f)}
+.are{font-size:11px;font-weight:600;background:#fff7ed;color:var(--warn);border:1px solid #fcd34d;border-radius:var(--rx);padding:4px 10px;cursor:pointer;font-family:var(--f)}
+.ch{background:linear-gradient(135deg,var(--p),var(--a2));padding:14px 16px;display:flex;align-items:center;gap:12px}
+.chav{width:40px;height:40px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.4);flex-shrink:0}
+.chav img{width:100%;height:100%;object-fit:cover}
+.chi{flex:1}
+.chn{font-size:15px;font-weight:700;color:#fff}
+.chs{font-size:11px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:4px}
+.od{width:7px;height:7px;background:#4ade80;border-radius:50%;display:inline-block}
+.cm{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;background:#f8fafc}
+.mb{max-width:75%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.5}
+.mb.in{background:#fff;color:var(--txt);border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.06);align-self:flex-start}
+.mb.out{background:linear-gradient(135deg,var(--p),var(--a2));color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.mts{font-size:10px;color:var(--tl);text-align:center;margin:4px 0}
+.mto{font-size:10px;color:rgba(255,255,255,.6);text-align:right;margin-top:4px}
+.typing{background:#fff;border-radius:16px;border-bottom-left-radius:4px;padding:12px 16px;display:flex;gap:4px;align-items:center;align-self:flex-start;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.td{width:7px;height:7px;background:var(--tl);border-radius:50%;animation:tp 1.2s infinite}
+.td:nth-child(2){animation-delay:.2s}
+.td:nth-child(3){animation-delay:.4s}
+@keyframes tp{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-4px);opacity:1}}
+.cib{padding:10px 12px 20px;background:#fff;border-top:1px solid var(--bdr);display:flex;align-items:center;gap:8px}
+.cia{font-size:18px;color:var(--tm);cursor:pointer}
+.ci{flex:1;background:#f1f5f9;border:1.5px solid transparent;border-radius:22px;padding:10px 14px;font-size:13px;font-family:var(--f);outline:none;transition:border-color .2s}
+.ci:focus{border-color:var(--p)}
+.cs{width:38px;height:38px;background:linear-gradient(135deg,var(--p),var(--a2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;box-shadow:0 4px 12px rgba(26,86,219,.4);transition:transform .2s}
+.cs:hover{transform:scale(1.1)}
+.mo{position:absolute;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center;z-index:200}
+.mo.on{display:flex}
+.ms{background:#fff;border-radius:24px 24px 0 0;width:100%;padding:20px 20px 40px;animation:su .35s ease}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mh{width:40px;height:4px;background:var(--bdr);border-radius:2px;margin:0 auto 20px}
+.mt{font-size:18px;font-weight:800;color:var(--txt);margin-bottom:16px}
+.cah{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cam{font-size:15px;font-weight:700;color:var(--txt)}
+.cn{width:28px;height:28px;border-radius:50%;background:var(--pl);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:var(--p)}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cdn{font-size:11px;color:var(--tm);font-weight:700;padding:4px 0}
+.cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;border-radius:50%;cursor:pointer;color:var(--txt);transition:all .15s}
+.cd:hover{background:var(--pl);color:var(--p)}
+.cd.sel{background:var(--p);color:#fff}
+.cd.td2{border:2px solid var(--p);color:var(--p)}
+.cd.dis{color:var(--tl);cursor:default}
+.ts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.tsl{padding:9px;border:2px solid var(--bdr);border-radius:var(--rx);font-size:12px;font-weight:600;color:var(--txt);text-align:center;cursor:pointer;transition:all .15s}
+.tsl:hover,.tsl.sel{border-color:var(--p);background:var(--pl);color:var(--p)}
+.cb{width:100%;padding:14px;background:linear-gradient(135deg,var(--p),var(--a2));color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--f);margin-top:20px;box-shadow:0 6px 20px rgba(26,86,219,.4)}
+.bn{position:sticky;bottom:0;background:#fff;display:flex;border-top:1px solid var(--bdr);padding:8px 0 16px;z-index:50}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 0}
+.bnic{font-size:20px}
+.bnil{font-size:10px;font-weight:600;color:var(--tl)}
+.pl{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:24px 16px;width:210px;display:flex;flex-direction:column;gap:10px}
+.plt{font-size:16px;font-weight:800;color:#fff;text-align:center;margin-bottom:2px}
+.pls{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.8px;padding:0 4px;margin-top:4px}
+.pb{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;cursor:pointer;color:rgba(255,255,255,.7);font-size:13px;font-weight:500;transition:all .2s;border:1px solid transparent}
+.pb:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.15)}
+.pb.on{background:linear-gradient(135deg,var(--p),var(--a2));color:#fff;box-shadow:0 4px 16px rgba(26,86,219,.4)}
+.pdv{height:1px;background:rgba(255,255,255,.1)}
+.pr{animation:pr 2s infinite}
+@keyframes pr{0%,100%{box-shadow:0 0 0 0 rgba(26,86,219,.3)}50%{box-shadow:0 0 0 8px rgba(26,86,219,0)}}
+.toast{position:absolute;top:56px;left:16px;right:16px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:14px 16px;border-radius:12px;font-size:13px;font-weight:700;text-align:center;z-index:300;box-shadow:0 8px 24px rgba(16,185,129,.4);animation:fi .3s ease}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <!-- SIDE PANEL -->
+  <div class="pl">
+    <div class="plt">⚖️ LegalConnect</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.35);text-align:center">Prototipo Interactivo</div>
+    <div class="pdv"></div>
+    <div class="pls">👤 Cliente</div>
+    <div class="pb on" id="b1" onclick="go('s1')"><span>🏠</span> 1. Inicio</div>
+    <div class="pb" id="b2" onclick="go('s2')"><span>🔍</span> 2. Resultados</div>
+    <div class="pb" id="b3" onclick="go('s3')"><span>👨‍⚖️</span> 3. Perfil Abogado</div>
+    <div class="pb" id="bc" onclick="go('sc')"><span>💬</span> 4. Chat</div>
+    <div class="pdv"></div>
+    <div class="pls">⚖️ Abogado</div>
+    <div class="pb" id="b4" onclick="go('s4')"><span>📋</span> 5. Registro</div>
+    <div class="pb" id="b5" onclick="go('s5')"><span>📊</span> 6. Dashboard</div>
+    <div class="pdv"></div>
+    <div style="font-size:11px;color:rgba(255,255,255,.4);text-align:center;line-height:1.7;padding:0 4px">
+      🚀 <strong style="color:rgba(255,255,255,.6)">Pitch Flow:</strong><br/>
+      <span style="font-size:10px">Inicio → Laboral →<br/>Resultados → Carlos →<br/>Perfil → Chat</span>
+    </div>
+  </div>
+
+  <!-- DEVICE -->
+  <div class="frame">
+    <div class="notch"></div>
+    <div class="screen-area">
+
+      <!-- S1: HOME -->
+      <div class="sc on" id="s1">
+        <div class="sbar"><span class="st">9:41</span><div class="si">📶 🔋</div></div>
+        <div class="nav">
+          <div class="logo"><div class="logo-ic">⚖️</div><span class="logo-tx">LegalConnect</span></div>
+          <div class="av">MR</div>
+        </div>
+        <div class="hero">
+          <div class="hg">Buenos días, Mario 👋</div>
+          <h1 class="ht">¿En qué área legal<br/>necesitas ayuda hoy?</h1>
+          <div class="sbox" onclick="go('s2')">
+            <span>🔍</span>
+            <span class="stxt">Busca por especialidad, palabra clave o nombre...</span>
+            <button class="sbtn">Buscar</button>
+          </div>
+        </div>
+        <div class="sec" style="margin-top:20px">
+          <div class="sech"><span class="sect">Especialidades</span><span class="secl">Ver todas</span></div>
+          <div class="cgrid">
+            <div class="cat" onclick="go('s2')"><span class="cic">🏛️</span><span class="clb">Civil</span></div>
+            <div class="cat" onclick="go('s2')"><span class="cic">🚔</span><span class="clb">Penal</span></div>
+            <div class="cat on" id="catL" onclick="clickL()"><span class="cic">👷</span><span class="clb">Laboral</span></div>
+            <div class="cat" onclick="go('s2')"><span class="cic">💼</span><span class="clb">Comercial</span></div>
+            <div class="cat" onclick="go('s2')"><span class="cic">👨‍👩‍👧</span><span class="clb">Familiar</span></div>
+          </div>
+        </div>
+        <div class="sec" style="margin-top:24px">
+          <div class="sech"><span class="sect">⭐ Abogados Destacados</span><span class="secl" onclick="go('s2')">Ver más</span></div>
+        </div>
+        <div class="crl">
+          <div class="cmin" onclick="go('s3')">
+            <div class="cav"><img src="lawyer_carlos.png" alt="Carlos" onerror="this.outerHTML='<span style=font-size:28px>👨‍⚖️</span>'" /></div>
+            <div class="cnm">Carlos Mendoza</div><div class="csp">Laboral · 12 años</div>
+            <div class="stars"><span class="star">★★★★★</span><span class="sc-sc">4.9</span></div>
+          </div>
+          <div class="cmin" onclick="go('s2')">
+            <div class="cav"><img src="lawyer_ana.png" alt="Ana" onerror="this.outerHTML='<span style=font-size:28px>👩‍⚖️</span>'" /></div>
+            <div class="cnm">Ana Vargas</div><div class="csp">Civil · 8 años</div>
+            <div class="stars"><span class="star">★★★★★</span><span class="sc-sc">4.8</span></div>
+          </div>
+          <div class="cmin" onclick="go('s2')">
+            <div class="cav"><img src="lawyer_roberto.png" alt="Roberto" onerror="this.outerHTML='<span style=font-size:28px>👨‍⚖️</span>'" /></div>
+            <div class="cnm">Roberto Silva</div><div class="csp">Penal · 20 años</div>
+            <div class="stars"><span class="star">★★★★★</span><span class="sc-sc">4.7</span></div>
+          </div>
+          <div class="cmin" onclick="go('s2')">
+            <div class="cav" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);font-size:26px">👩‍⚖️</div>
+            <div class="cnm">Lucía Torres</div><div class="csp">Familiar · 6 años</div>
+            <div class="stars"><span class="star">★★★★★</span><span class="sc-sc">4.9</span></div>
+          </div>
+        </div>
+        <div class="bn">
+          <div class="bni"><span class="bnic">🏠</span><span class="bnil" style="color:var(--p)">Inicio</span></div>
+          <div class="bni" onclick="go('s2')"><span class="bnic">🔍</span><span class="bnil">Buscar</span></div>
+          <div class="bni"><span class="bnic">💬</span><span class="bnil">Mensajes</span></div>
+          <div class="bni"><span class="bnic">👤</span><span class="bnil">Perfil</span></div>
+        </div>
+      </div>
+
+      <!-- S2: RESULTS -->
+      <div class="sc" id="s2">
+        <div class="sbar"><span class="st">9:43</span><div class="si">📶 🔋</div></div>
+        <div class="nav"><div class="bk" onclick="go('s1')">← Volver</div><span class="logo-tx" style="font-size:15px">Buscar Abogados</span><div style="width:60px"></div></div>
+        <div class="rh"><div class="rtg">⚖️ Derecho Laboral</div><button class="fb">⚙️ Filtros</button></div>
+        <div class="rc">Se encontraron <strong>23 abogados</strong> verificados</div>
+        <div class="ll">
+          <div class="lc pr" onclick="go('s3')" style="border-color:var(--p)">
+            <div class="lav"><img src="lawyer_carlos.png" alt="Carlos" onerror="this.parentNode.style.background='#e8effd';this.outerHTML='<span style=font-size:36px>👨‍⚖️</span>'" /></div>
+            <div class="li">
+              <div class="lnr"><span class="ln">Carlos Mendoza</span><span class="vbg">✓ Verificado</span></div>
+              <div class="lsp">Laboral · Comercial · 12 años exp.</div>
+              <div class="lst"><span class="rp">⭐ 4.9</span><span class="rv">(187 reseñas)</span></div>
+              <div class="pt">Desde S/. 90 / consulta</div>
+              <button class="vb" style="margin-top:8px" onclick="event.stopPropagation();go('s3')">Ver Perfil →</button>
+            </div>
+          </div>
+          <div class="lc">
+            <div class="lav"><img src="lawyer_ana.png" alt="Ana" onerror="this.parentNode.style.background='#e8effd';this.outerHTML='<span style=font-size:36px>👩‍⚖️</span>'" /></div>
+            <div class="li">
+              <div class="lnr"><span class="ln">Ana Vargas</span><span class="vbg">✓ Verificado</span></div>
+              <div class="lsp">Laboral · Civil · 8 años exp.</div>
+              <div class="lst"><span class="rp">⭐ 4.8</span><span class="rv">(134 reseñas)</span></div>
+              <div class="pt">Desde S/. 80 / consulta</div>
+              <button class="vb" style="margin-top:8px">Ver Perfil →</button>
+            </div>
+          </div>
+          <div class="lc">
+            <div class="lav"><img src="lawyer_roberto.png" alt="Roberto" onerror="this.parentNode.style.background='#e8effd';this.outerHTML='<span style=font-size:36px>👨‍⚖️</span>'" /></div>
+            <div class="li">
+              <div class="lnr"><span class="ln">Roberto Silva</span><span class="vbg">✓ Verificado</span></div>
+              <div class="lsp">Laboral · Penal · 20 años exp.</div>
+              <div class="lst"><span class="rp">⭐ 4.7</span><span class="rv">(210 reseñas)</span></div>
+              <div class="pt">Desde S/. 120 / consulta</div>
+              <button class="vb" style="margin-top:8px">Ver Perfil →</button>
+            </div>
+          </div>
+          <div class="lc">
+            <div class="lav" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;font-size:28px">👩‍⚖️</div>
+            <div class="li">
+              <div class="lnr"><span class="ln">Lucía Torres</span><span class="vbg">✓ Verificado</span></div>
+              <div class="lsp">Laboral · Familiar · 6 años exp.</div>
+              <div class="lst"><span class="rp">⭐ 4.9</span><span class="rv">(98 reseñas)</span></div>
+              <div class="pt">Desde S/. 70 / consulta</div>
+              <button class="vb" style="margin-top:8px">Ver Perfil →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3: PROFILE -->
+      <div class="sc" id="s3">
+        <div class="sbar"><span class="st">9:45</span><div class="si">📶 🔋</div></div>
+        <div style="position:absolute;top:44px;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:12px 16px">
+          <div class="bk" onclick="go('s2')" style="background:rgba(255,255,255,.15);color:#fff">← Volver</div>
+          <div style="display:flex;gap:8px">
+            <div style="width:34px;height:34px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff">♡</div>
+            <div style="width:34px;height:34px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff">↑</div>
+          </div>
+        </div>
+        <div class="ph" style="padding-top:80px">
+          <div class="paw">
+            <div class="pa"><img src="lawyer_carlos.png" alt="Carlos" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a56db,#6366f1)';this.outerHTML='<span style=font-size:40px;line-height:88px>👨‍⚖️</span>'" /></div>
+            <div class="pvr">✓</div>
+          </div>
+          <div class="pn">Carlos Mendoza</div>
+          <div class="psp"><span class="spg">⚖️ Laboral</span><span class="spg">💼 Comercial</span><span class="spg">📑 Contratos</span></div>
+          <div class="plc">📍 Lima, Perú · Virtual y Presencial</div>
+        </div>
+        <div class="psr">
+          <div class="ps"><div class="psn">4.9 ⭐</div><div class="psl">Calificación</div></div>
+          <div class="ps"><div class="psn">187</div><div class="psl">Reseñas</div></div>
+          <div class="ps"><div class="psn">12</div><div class="psl">Años exp.</div></div>
+          <div class="ps"><div class="psn">340+</div><div class="psl">Clientes</div></div>
+        </div>
+        <div class="psec">
+          <div class="psect">👤 Sobre mí</div>
+          <div class="pbio">Abogado egresado de la <strong>PUCP</strong>, con maestría en Derecho Laboral Empresarial. Especialista en relaciones laborales, despidos arbitrarios, asesoría a MYPES y contratos de trabajo. Mi enfoque es brindar soluciones prácticas y accesibles, priorizando siempre el bienestar de mis clientes.</div>
+        </div>
+        <div class="psec">
+          <div class="psect">💰 Servicios y Tarifas</div>
+          <div class="svi"><div><div class="svn">Consulta inicial virtual</div><div class="svd">30 min · Videollamada</div></div><div class="svp">S/. 90</div></div>
+          <div class="svi"><div><div class="svn">Revisión de contratos</div><div class="svd">Análisis completo + informe</div></div><div class="svp">S/. 180</div></div>
+          <div class="svi"><div><div class="svn">Asesoría MYPE</div><div class="svd">Paquete mensual ilimitado</div></div><div class="svp">S/. 450</div></div>
+        </div>
+        <div class="psec" style="margin-bottom:100px">
+          <div class="psect">💬 Opiniones de Clientes</div>
+          <div class="rvi">
+            <div class="rvh"><div class="rav" style="background:linear-gradient(135deg,#667eea,#764ba2)">MG</div><div><div class="rnm">Marco García</div></div><div class="rdt">Hace 2 días</div></div>
+            <div class="rrs">⭐⭐⭐⭐⭐</div>
+            <div class="rtx">Excelente profesional. Me ayudó con un despido injustificado de manera rápida y efectiva. Muy recomendado.</div>
+          </div>
+          <div class="rvi">
+            <div class="rvh"><div class="rav" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">SR</div><div><div class="rnm">Sofía Ramírez</div></div><div class="rdt">Hace 1 semana</div></div>
+            <div class="rrs">⭐⭐⭐⭐⭐</div>
+            <div class="rtx">Me asesoró en la constitución de mi empresa. Explica todo de manera clara. La plataforma es muy fácil de usar.</div>
+          </div>
+          <div class="rvi">
+            <div class="rvh"><div class="rav" style="background:linear-gradient(135deg,#10b981,#059669)">JL</div><div><div class="rnm">Jorge Luna</div></div><div class="rdt">Hace 2 semanas</div></div>
+            <div class="rrs">⭐⭐⭐⭐⭐</div>
+            <div class="rtx">Revisó mis contratos y encontró cláusulas problemáticas. Ahorré mucho dinero gracias a su asesoría.</div>
+          </div>
+        </div>
+        <div class="fab">
+          <button class="fbtn fch" onclick="go('sc')">💬 Iniciar Chat</button>
+          <button class="fbtn fsc" onclick="openCal()">📅 Agendar Cita</button>
+        </div>
+        <!-- Modal Calendar -->
+        <div class="mo" id="calmod" onclick="closeCal(event)">
+          <div class="ms">
+            <div class="mh"></div>
+            <div class="mt">📅 Selecciona una fecha</div>
+            <div class="cah"><div class="cn">‹</div><div class="cam">Junio 2026</div><div class="cn">›</div></div>
+            <div class="cg">
+              <div class="cdn">L</div><div class="cdn">M</div><div class="cdn">X</div><div class="cdn">J</div><div class="cdn">V</div><div class="cdn">S</div><div class="cdn">D</div>
+              <div class="cd dis">—</div><div class="cd dis">—</div><div class="cd dis">—</div><div class="cd dis">—</div><div class="cd dis">—</div><div class="cd dis">—</div><div class="cd dis">1</div>
+              <div class="cd dis">2</div><div class="cd dis">3</div><div class="cd dis">4</div><div class="cd dis">5</div><div class="cd dis">6</div><div class="cd dis">7</div><div class="cd dis">8</div>
+              <div class="cd dis">9</div><div class="cd dis">10</div><div class="cd dis">11</div><div class="cd dis">12</div><div class="cd dis">13</div><div class="cd dis">14</div><div class="cd dis">15</div>
+              <div class="cd dis">16</div><div class="cd dis">17</div><div class="cd dis">18</div><div class="cd dis">19</div><div class="cd td2">20</div><div class="cd" onclick="selDay(this)">21</div><div class="cd" onclick="selDay(this)">22</div>
+              <div class="cd" onclick="selDay(this)">23</div><div class="cd" onclick="selDay(this)">24</div><div class="cd" onclick="selDay(this)">25</div><div class="cd dis">26</div><div class="cd dis">27</div><div class="cd" onclick="selDay(this)">28</div><div class="cd" onclick="selDay(this)">29</div>
+              <div class="cd" onclick="selDay(this)">30</div>
+            </div>
+            <div class="ts">
+              <div class="tsl" onclick="selSlot(this)">9:00 AM</div>
+              <div class="tsl" onclick="selSlot(this)">10:00 AM</div>
+              <div class="tsl sel" onclick="selSlot(this)">11:30 AM</div>
+              <div class="tsl" onclick="selSlot(this)">2:00 PM</div>
+              <div class="tsl" onclick="selSlot(this)">3:30 PM</div>
+              <div class="tsl" onclick="selSlot(this)">5:00 PM</div>
+            </div>
+            <button class="cb" id="cbtn" onclick="confAppt()">✅ Confirmar Cita · 11:30 AM</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SC: CHAT -->
+      <div class="sc" id="sc" style="flex-direction:column">
+        <div class="sbar"><span class="st">9:47</span><div class="si">📶 🔋</div></div>
+        <div class="ch" style="padding-top:54px">
+          <span onclick="go('s3')" style="color:rgba(255,255,255,.9);cursor:pointer;font-size:20px;padding-right:4px">←</span>
+          <div class="chav"><img src="lawyer_carlos.png" alt="Carlos" onerror="this.parentNode.style.background='#1a56db';this.outerHTML='<span style=font-size:20px>👨‍⚖️</span>'" /></div>
+          <div class="chi"><div class="chn">Carlos Mendoza</div><div class="chs"><span class="od"></span>En línea ahora</div></div>
+          <div style="display:flex;gap:14px"><span style="color:rgba(255,255,255,.8);font-size:18px;cursor:pointer">📹</span><span style="color:rgba(255,255,255,.8);font-size:18px;cursor:pointer">📞</span></div>
+        </div>
+        <div class="cm" id="msgs">
+          <div class="mts">Hoy, 9:47 AM</div>
+          <div class="mb in">Hola, soy el Abogado Carlos Mendoza. ¡Bienvenido a LegalConnect! ¿En qué puedo ayudarte hoy? 😊<div style="font-size:10px;color:#94a3b8;margin-top:4px">9:47 AM</div></div>
+          <div class="mb out">Hola Carlos, necesito ayuda con un contrato de trabajo. Mi empleador quiere que firme algo y no estoy seguro si me conviene.<div class="mto">9:48 AM ✓✓</div></div>
+          <div class="mb in">Entiendo perfectamente tu situación. Es muy importante revisar los contratos antes de firmarlos. ¿Puedes contarme más sobre el tipo de contrato?<div style="font-size:10px;color:#94a3b8;margin-top:4px">9:48 AM</div></div>
+          <div class="mb out">Es un contrato a plazo fijo, pero incluye una cláusula de no competencia por 2 años. ¿Eso es legal en Perú?<div class="mto">9:49 AM ✓✓</div></div>
+          <div id="ta"><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>
+        </div>
+        <div class="cib">
+          <span class="cia">📎</span>
+          <input class="ci" type="text" placeholder="Escribe un mensaje..." id="cinput" onkeydown="sendMsg(event)" />
+          <div class="cs" onclick="sendMsgClick()">➤</div>
+        </div>
+      </div>
+
+      <!-- S4: ONBOARDING -->
+      <div class="sc" id="s4">
+        <div class="sbar"><span class="st">9:41</span><div class="si">📶 🔋</div></div>
+        <div class="oh" style="padding-top:60px">
+          <div class="osteps"><div class="sd on"></div><div class="sd"></div><div class="sd"></div></div>
+          <div class="ot">Únete como Abogado</div>
+          <div class="os">Completa tu perfil para empezar a recibir clientes</div>
+        </div>
+        <div class="fb2">
+          <div class="fg"><label>Nombre completo</label><input class="fi" type="text" value="Carlos Mendoza Ríos" /></div>
+          <div class="fg"><label>DNI</label><input class="fi" type="text" value="45612378" /></div>
+          <div class="fg"><label>Universidad de egreso</label><input class="fi" type="text" value="Pontificia Universidad Católica del Perú" /></div>
+          <div class="fg"><label>N.° de Colegiatura</label><input class="fi" type="text" value="CAL-58291" /></div>
+          <div class="fg"><label>Especialidades</label><input class="fi" type="text" value="Laboral, Comercial, Contratos" /></div>
+          <div class="fg">
+            <label>📄 Documentos de Verificación</label>
+            <div class="uz">
+              <div class="ui">📤</div>
+              <div class="ut">Sube tu carné del Colegio de Abogados</div>
+              <div class="uh">o constancia de habilitación vigente</div>
+              <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+                <div style="background:#fff;border:1px solid var(--bdr);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--p);cursor:pointer">📷 Cámara</div>
+                <div style="background:#fff;border:1px solid var(--bdr);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--p);cursor:pointer">📁 Archivos</div>
+              </div>
+            </div>
+          </div>
+          <div class="fg">
+            <label>💰 Configuración de Tarifas</label>
+            <div class="tr">
+              <div class="fg" style="margin:0"><label style="font-size:11px">Consulta virtual</label><input class="fi" type="text" value="S/. 90.00" /></div>
+              <div class="fg" style="margin:0"><label style="font-size:11px">Revisión contrato</label><input class="fi" type="text" value="S/. 180.00" /></div>
+            </div>
+          </div>
+          <div style="background:var(--pl);border:1px solid rgba(26,86,219,.2);border-radius:var(--rs);padding:12px 14px;display:flex;gap:10px">
+            <span style="font-size:18px">🔒</span>
+            <div style="font-size:12px;color:var(--p);line-height:1.5"><strong>Verificación segura:</strong> Tu información será revisada por nuestro equipo en máximo 48 horas antes de activar tu perfil.</div>
+          </div>
+          <button class="sb" onclick="go('s5')">Enviar solicitud de verificación →</button>
+          <div style="height:20px"></div>
+        </div>
+      </div>
+
+      <!-- S5: DASHBOARD -->
+      <div class="sc" id="s5">
+        <div class="sbar"><span class="st">9:41</span><div class="si">📶 🔋</div></div>
+        <div class="dh" style="padding-top:60px">
+          <div class="dw">Buenos días, Abogado 👋</div>
+          <div class="dn">Carlos Mendoza</div>
+          <div class="mg">
+            <div class="mc"><div class="mci">👁️</div><div class="mcn">1,248</div><div class="mcl">Visitas este mes</div></div>
+            <div class="mc" style="background:rgba(99,102,241,.3);border-color:rgba(99,102,241,.4)"><div class="mci">💬</div><div class="mcn">7</div><div class="mcl">Mensajes nuevos</div></div>
+            <div class="mc"><div class="mci">📅</div><div class="mcn">12</div><div class="mcl">Citas agendadas</div></div>
+            <div class="mc" style="background:rgba(16,185,129,.2);border-color:rgba(16,185,129,.3)"><div class="mci">💰</div><div class="mcn">S/.3,240</div><div class="mcl">Ingresos del mes</div></div>
+          </div>
+        </div>
+        <div class="ds" style="margin-top:16px">
+          <div class="dst">💬 Bandeja de Mensajes</div>
+          <div class="mi u" onclick="go('sc')">
+            <div class="mav" style="background:linear-gradient(135deg,#667eea,#764ba2)">MR</div>
+            <div class="min"><div class="mnm">Mario Ríos</div><div class="mpv">Hola Carlos, necesito ayuda con un contrato...</div><div class="mtm">Hace 3 min</div></div>
+            <div class="mbg">1</div>
+          </div>
+          <div class="mi">
+            <div class="mav" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">SR</div>
+            <div class="min"><div class="mnm">Sofía Ramírez</div><div class="mpv">Muchas gracias por la asesoría de hoy ✨</div><div class="mtm">Hace 1 hora</div></div>
+          </div>
+          <div class="mi u">
+            <div class="mav" style="background:linear-gradient(135deg,#10b981,#059669)">JL</div>
+            <div class="min"><div class="mnm">Jorge Luna</div><div class="mpv">¿Podrías revisar este nuevo contrato? Te mando...</div><div class="mtm">Hace 2 horas</div></div>
+            <div class="mbg">3</div>
+          </div>
+        </div>
+        <div class="ds" style="padding-bottom:100px">
+          <div class="dst" style="margin-top:16px">📅 Agenda de la Semana</div>
+          <div class="ag">
+            <div class="atm"><div class="ah">9:00</div><div class="aa">HOY</div></div>
+            <div class="adv"></div>
+            <div style="flex:1;padding-left:12px">
+              <div class="acl">Marco García</div><div class="atp">Consulta: Despido arbitrario · Virtual</div>
+              <div class="aac"><button class="aok">✓ Aceptar</button><button class="are">↻ Reprogramar</button></div>
+            </div>
+          </div>
+          <div class="ag" style="border-left-color:var(--ok)">
+            <div class="atm"><div class="ah" style="color:var(--ok)">11:30</div><div class="aa">HOY</div></div>
+            <div class="adv"></div>
+            <div style="flex:1;padding-left:12px">
+              <div class="acl">Sofía Ramírez</div><div class="atp">Revisión de contrato MYPE · Virtual</div>
+              <div class="aac"><div style="font-size:11px;color:var(--ok);font-weight:700;background:#dcfce7;padding:4px 10px;border-radius:6px;border:1px solid #86efac">✓ Confirmado</div></div>
+            </div>
+          </div>
+          <div class="ag" style="border-left-color:var(--a2)">
+            <div class="atm"><div class="ah" style="color:var(--a2)">3:00</div><div class="aa">MIÉ</div></div>
+            <div class="adv"></div>
+            <div style="flex:1;padding-left:12px">
+              <div class="acl">Jorge Luna</div><div class="atp">Análisis contractual · Presencial</div>
+              <div class="aac"><button class="aok">✓ Aceptar</button><button class="are">↻ Reprogramar</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="bn">
+          <div class="bni"><span class="bnic">📊</span><span class="bnil" style="color:var(--p)">Dashboard</span></div>
+          <div class="bni"><span class="bnic">💬</span><span class="bnil">Mensajes</span></div>
+          <div class="bni"><span class="bnic">📅</span><span class="bnil">Agenda</span></div>
+          <div class="bni"><span class="bnic">👤</span><span class="bnil">Mi Perfil</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const ALL=['s1','s2','s3','sc','s4','s5'];
+const BM={s1:'b1',s2:'b2',s3:'b3',sc:'bc',s4:'b4',s5:'b5'};
+let chatDone=false;
+
+function go(id){
+  ALL.forEach(s=>{const e=document.getElementById(s);if(e){e.classList.remove('on');}});
+  const t=document.getElementById(id);
+  if(t){t.classList.add('on');t.scrollTop=0;}
+  Object.values(BM).forEach(b=>{const e=document.getElementById(b);if(e)e.classList.remove('on');});
+  const ab=document.getElementById(BM[id]);
+  if(ab)ab.classList.add('on');
+  if(id==='sc'&&!chatDone){
+    chatDone=true;
+    setTimeout(()=>{
+      const ta=document.getElementById('ta');
+      if(!ta)return;
+      ta.innerHTML='<div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div>';
+      setTimeout(()=>{
+        ta.innerHTML='<div class="mb in">Excelente pregunta. En el Peru, las clausulas de no competencia tienen <strong>validez limitada</strong>. Para ser aplicables, deben ser razonables en tiempo y territorio. 2 anos puede ser excesivo segun la jurisprudencia actual. Puedo revisar el contrato completo en detalle. ¿Me lo puedes compartir? 📑<div style="font-size:10px;color:#94a3b8;margin-top:4px">9:50 AM</div></div>';
+        const m=document.getElementById('msgs');
+        if(m)m.scrollTop=m.scrollHeight;
+      },2500);
+    },900);
+  }
+}
+
+function clickL(){
+  const b=document.getElementById('catL');
+  if(b){b.style.transform='scale(0.92)';setTimeout(()=>{b.style.transform='';go('s2');},250);}
+}
+
+function openCal(){document.getElementById('calmod').classList.add('on');}
+function closeCal(e){if(e.target===document.getElementById('calmod'))document.getElementById('calmod').classList.remove('on');}
+
+function selDay(el){
+  document.querySelectorAll('.cd.sel').forEach(d=>d.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function selSlot(el){
+  document.querySelectorAll('.tsl.sel').forEach(s=>s.classList.remove('sel'));
+  el.classList.add('sel');
+  const b=document.getElementById('cbtn');
+  if(b)b.textContent='✅ Confirmar Cita · '+el.textContent;
+}
+
+function confAppt(){
+  document.getElementById('calmod').classList.remove('on');
+  const s=document.getElementById('s3');
+  const t=document.createElement('div');
+  t.className='toast';
+  t.textContent='✅ ¡Cita agendada! Carlos Mendoza fue notificado.';
+  s.appendChild(t);
+  setTimeout(()=>t.remove(),3200);
+}
+
+function sendMsg(e){if(e.key==='Enter')sendMsgClick();}
+function sendMsgClick(){
+  const inp=document.getElementById('cinput');
+  const txt=inp?inp.value.trim():'';
+  if(!txt)return;
+  inp.value='';
+  const msgs=document.getElementById('msgs');
+  const b=document.createElement('div');
+  b.className='mb out';
+  const n=new Date();
+  const t=n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');
+  b.innerHTML=txt+'<div class="mto">'+t+' ✓✓</div>';
+  msgs.appendChild(b);
+  msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{
+    const tp=document.createElement('div');
+    tp.className='typing';
+    tp.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';
+    msgs.appendChild(tp);
+    msgs.scrollTop=msgs.scrollHeight;
+    setTimeout(()=>{
+      tp.remove();
+      const r=document.createElement('div');
+      r.className='mb in';
+      r.innerHTML='Entendido, puedo ayudarte. ¿Te gustaria agendar una consulta formal para revisarlo en detalle? 📋<div style="font-size:10px;color:#94a3b8;margin-top:4px">'+t+'</div>';
+      msgs.appendChild(r);
+      msgs.scrollTop=msgs.scrollHeight;
+    },1800);
+  },600);
+}
+</script>
+</body>
+</html>
